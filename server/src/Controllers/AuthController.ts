@@ -91,7 +91,8 @@ export class AuthController implements IAppController {
       res.status(201).json({ message: "User registered successfully" });
 
       // Generate confirm email TOKEN
-      if (!oh.getUserByMail(email, this.db)) {
+      const registeredUser = await oh.getUserByMail(email, this.db);
+      if (!registeredUser) {
         console.error("Email not found after registration");
         return;
       }
